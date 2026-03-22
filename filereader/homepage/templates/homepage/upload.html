@@ -1,0 +1,17 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+<h1>Upload JSON file</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="json_file">
+    <button type="submit">Upload</button>
+</form>
+
+{% if errors %}
+    {% for error in errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
