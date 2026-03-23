@@ -24,10 +24,13 @@ def upload(request):
                 errors.append(f"name field too long (50+ symbols) line {i}")
             else:
                 try:
-                    datetime.strptime(dictionary["date"], "%Y-%m-%d_%H:%M")
+                    parsed_date = datetime.strptime(
+                        dictionary["date"], "%Y-%m-%d_%H:%M"
+                    )
                 except ValueError:
                     errors.append(f"wromg date field form line {i}")
                 else:
+                    dictionary["date"] = parsed_date
                     db_list.append(dictionary)
         if errors:
             return render(request, "homepage/upload.html", {"errors": errors})
